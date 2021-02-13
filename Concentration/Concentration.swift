@@ -1,15 +1,15 @@
 
 import Foundation
 
-class Concentration {
+struct Concentration {
     
     //------------------------------------
     // MARK: Properties
     //------------------------------------
     // # Public/Internal/Open
-    var cards: Array = [Card]()
-
+    
     // # Private/Fileprivate
+    private(set) var cards: Array = [Card]()
     private var indexOfSingleFaceUpCard: Int? {
         get {
             var foundIndex: Int?
@@ -34,7 +34,7 @@ class Concentration {
     //=======================================
     // MARK: Public Methods
     //=======================================
-    func chooseCard(at index: Int) {
+    mutating func chooseCard(at index: Int) {
         assert(cards.indices.contains(index), "Concentration.chooseCard(at: \(index)): chosen index not in the cards")
         if !cards[index].isMatched {
             if let matchIndex = indexOfSingleFaceUpCard, matchIndex != index {
@@ -50,9 +50,17 @@ class Concentration {
         }
     }
     
-    func choseEmojiSet(usableSets: Array<Array<String>>) -> Array<String> {
-        let randomEmojiCollection = Int(arc4random_uniform(UInt32(usableSets.count)))
+    func choseCardFaceSet(usableSets: Array<Array<String>>) -> Array<String> {
+        let randomEmojiCollection = usableSets.count.arc4random
         return usableSets[randomEmojiCollection]
+    }
+    
+    mutating func resetCards(at index: Int) {
+        assert(cards.indices.contains(index), "Concentration.resetCards(at: \(index)): chosen index not in the cards")
+        for index in cards.indices {
+            cards[index].isFaceUp = false
+            cards[index].isMatched = false
+        }
     }
     
     //------------------------------------
