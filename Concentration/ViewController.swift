@@ -13,9 +13,14 @@ class ViewController: UIViewController {
             flipCountLabel.text = "Flips: \(flipCount)"
         }
     }
-    var emojiChoices: Array<String> = ["👻", "🎃", "🙀", "☠️", "😈", "⚰️", "👹", "👺", "💀", "🧟‍♀️", "🧟‍♂️"]
     var emoji: Dictionary = [Int: String]()
-    
+    var emojiHalloween: Array<String> = ["👻", "🎃", "🙀", "☠️", "😈", "⚰️", "👹", "👺", "💀", "🧟‍♀️", "🧟‍♂️"]
+    var emojiAnimals: Array<String> = ["🐶", "🐱", "🐭", "🐰", "🦊", "🐻", "🐼", "🐨", "🐷", "🐯", "🐸"]
+    var emojiSports: Array<String> = ["⚽️", "🏀", "🏈", "⚾️", "🥎", "🎾", "🏐", "🏉", "🥏", "🎱", "🏓"]
+    var emojiFlags: Array<String> = ["🏳️", "🏴", "🏴‍☠️", "🏁", "🚩", "🏳️‍🌈", "🇺🇳", "🇦🇶", "🇪🇺", "🎌", "🇻🇦"]
+    var emojiFaces: Array<String> = ["🥳", "🤩", "😎", "🤯", "🥺", "🤫", "🙄", "😴", "🤐", "😷", "😵"]
+    lazy var emojiSetInUse = game.choseEmojiSet(usableSets: [emojiHalloween, emojiAnimals, emojiSports, emojiFlags, emojiFaces])
+
     @IBOutlet var cardButtons: [UIButton]!
     
     @IBAction func touchCard(_ sender: UIButton) {
@@ -30,6 +35,15 @@ class ViewController: UIViewController {
     }
     
     @IBOutlet weak var flipCountLabel: UILabel!
+    
+    @IBAction func newGame(_ sender: UIButton) {
+        flipCount = 0
+        for index in cardButtons.indices {
+            game.cards[index].isFaceUp = false
+            game.cards[index].isMatched = false
+        }
+        updateViewFromModel()
+    }
     
     //=======================================
     // MARK: Public Methods
@@ -50,9 +64,9 @@ class ViewController: UIViewController {
     }
     
     func emoji(for card: Card) -> String {
-        if emoji[card.identifier] == nil, emojiChoices.count > 0 {
-            let randomIndex = Int(arc4random_uniform(UInt32(emojiChoices.count)))
-            emoji[card.identifier] = emojiChoices.remove(at: randomIndex)
+        if emoji[card.identifier] == nil, emojiSetInUse.count > 0 {
+            let randomIndex = Int(arc4random_uniform(UInt32(emojiSetInUse.count)))
+            emoji[card.identifier] = emojiSetInUse.remove(at: randomIndex)
         }
         return emoji[card.identifier] ?? "card missing"
     }

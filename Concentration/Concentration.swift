@@ -35,6 +35,11 @@ class Concentration {
         }
     }
     
+    func choseEmojiSet(usableSets: Array<Array<String>>) -> Array<String> {
+        let randomEmojiCollection = Int(arc4random_uniform(UInt32(usableSets.count)))
+        return usableSets[randomEmojiCollection]
+    }
+    
     //------------------------------------
     // MARK: Initilisers
     //------------------------------------
@@ -44,6 +49,6 @@ class Concentration {
             let card = Card()
             cards += [card, card]
         }
-        // TODO: Shuffle the cards
+        cards.shuffle()
     }
 }
