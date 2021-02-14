@@ -18,7 +18,7 @@ class ViewController: UIViewController {
             flipCountLabel.text = "Flips: \(flipCount)"
         }
     }
-    private var emoji: Dictionary = [Int: String]()
+    private var emoji: Dictionary = [Card : String]()
     private var emojiHalloween: Array<String> = ["👻", "🎃", "🙀", "☠️", "😈", "⚰️", "👹", "👺", "💀", "🧟‍♀️", "🧟‍♂️"]
     private var emojiAnimals: Array<String> = ["🐶", "🐱", "🐭", "🐰", "🦊", "🐻", "🐼", "🐨", "🐷", "🐯", "🐸"]
     private var emojiSports: Array<String> = ["⚽️", "🏀", "🏈", "⚾️", "🥎", "🎾", "🏐", "🏉", "🥏", "🎱", "🏓"]
@@ -72,10 +72,10 @@ class ViewController: UIViewController {
     }
     
     private func emoji(for card: Card) -> String {
-        if emoji[card.identifier] == nil, emojiSetInUse.count > 0 {
-            emoji[card.identifier] = emojiSetInUse.remove(at: emojiSetInUse.count.arc4random)
+        if emoji[card] == nil, emojiSetInUse.count > 0 {
+            emoji[card] = emojiSetInUse.remove(at: emojiSetInUse.count.arc4random)
         }
-        return emoji[card.identifier] ?? "card missing"
+        return emoji[card] ?? "card missing"
     }
 }
 
