@@ -12,17 +12,7 @@ struct Concentration {
     private(set) var cards: Array = [Card]()
     private var indexOfSingleFaceUpCard: Int? {
         get {
-            var foundIndex: Int?
-            for index in cards.indices {
-                if cards[index].isFaceUp {
-                    if foundIndex == nil {
-                        foundIndex = index
-                    } else {
-                        return nil
-                    }
-                }
-            }
-            return foundIndex
+            return cards.indices.filter { cards[$0].isFaceUp }.oneAndOnly
         }
         set {
             for index in cards.indices {
@@ -50,7 +40,7 @@ struct Concentration {
         }
     }
     
-    func choseCardFaceSet(usableSets: Array<Array<String>>) -> Array<String> {
+    func choseCardFaceSet(usableSets: Array<String>) -> String {
         let randomEmojiCollection = usableSets.count.arc4random
         return usableSets[randomEmojiCollection]
     }
@@ -73,5 +63,11 @@ struct Concentration {
             cards += [card, card]
         }
         cards.shuffle()
+    }
+}
+
+extension Collection {
+    var oneAndOnly: Element? {
+        return count == 1 ? first : nil
     }
 }

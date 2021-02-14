@@ -15,15 +15,15 @@ class ViewController: UIViewController {
     private lazy var game = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
     private(set) var flipCount: Int = 0 {
         didSet {
-            flipCountLabel.text = "Flips: \(flipCount)"
+            updateFlipCountLabel()
         }
     }
     private var emoji: Dictionary = [Card : String]()
-    private var emojiHalloween: Array<String> = ["👻", "🎃", "🙀", "☠️", "😈", "⚰️", "👹", "👺", "💀", "🧟‍♀️", "🧟‍♂️"]
-    private var emojiAnimals: Array<String> = ["🐶", "🐱", "🐭", "🐰", "🦊", "🐻", "🐼", "🐨", "🐷", "🐯", "🐸"]
-    private var emojiSports: Array<String> = ["⚽️", "🏀", "🏈", "⚾️", "🥎", "🎾", "🏐", "🏉", "🥏", "🎱", "🏓"]
-    private var emojiFlags: Array<String> = ["🏳️", "🏴", "🏴‍☠️", "🏁", "🚩", "🏳️‍🌈", "🇺🇳", "🇦🇶", "🇪🇺", "🎌", "🇻🇦"]
-    private var emojiFaces: Array<String> = ["🥳", "🤩", "😎", "🤯", "🥺", "🤫", "🙄", "😴", "🤐", "😷", "😵"]
+    private var emojiHalloween: String = "👻🎃🙀☠️😈⚰️👹👺💀🧟‍♀️🧟‍♂️"
+    private var emojiAnimals: String = "🐶🐱🐭🐰🦊🐻🐼🐨🐷🐯🐸"
+    private var emojiSports: String = "⚽️🏀🏈⚾️🥎🎾🏐🏉🥏🎱🏓"
+    private var emojiFlags: String = "🏳️🏴🏴‍☠️🏁🚩🏳️‍🌈🇺🇳🇦🇶🇪🇺🎌🇻🇦"
+    private var emojiFaces: String = "🥳🤩😎🤯🥺🤫🙄😴🤐😷😵"
     private lazy var emojiSetInUse = game.choseCardFaceSet(usableSets: [emojiHalloween, emojiAnimals, emojiSports, emojiFlags, emojiFaces])
     
     @IBOutlet private var cardButtons: [UIButton]!
@@ -39,7 +39,11 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBOutlet private weak var flipCountLabel: UILabel!
+    @IBOutlet private weak var flipCountLabel: UILabel! {
+        didSet {
+            updateFlipCountLabel()
+        }
+    }
     
     @IBAction private func newGame(_ sender: UIButton) {
         flipCount = 0
@@ -73,9 +77,19 @@ class ViewController: UIViewController {
     
     private func emoji(for card: Card) -> String {
         if emoji[card] == nil, emojiSetInUse.count > 0 {
-            emoji[card] = emojiSetInUse.remove(at: emojiSetInUse.count.arc4random)
+            let randomStringIndex = emojiSetInUse.index(emojiSetInUse.startIndex, offsetBy: emojiSetInUse.count.arc4random)
+            emoji[card] = String(emojiSetInUse.remove(at: randomStringIndex))
         }
         return emoji[card] ?? "card missing"
+    }
+    
+    private func updateFlipCountLabel() {
+        let attributes: [NSAttributedString.Key : Any] = [
+            .strokeWidth: 2.0,
+            .strokeColor: UIColor.orange
+        ]
+        let attributedString = NSAttributedString(string: "Flips: \(flipCount)", attributes: attributes)
+        flipCountLabel.attributedText = attributedString
     }
 }
 
