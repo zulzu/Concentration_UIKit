@@ -18,13 +18,12 @@ class ViewController: UIViewController {
             updateFlipCountLabel()
         }
     }
+    
     private var emoji: Dictionary = [Card : String]()
-    private var emojiHalloween: String = "👻🎃🙀☠️😈⚰️👹👺💀🧟‍♀️🧟‍♂️"
-    private var emojiAnimals: String = "🐶🐱🐭🐰🦊🐻🐼🐨🐷🐯🐸"
-    private var emojiSports: String = "⚽️🏀🏈⚾️🥎🎾🏐🏉🥏🎱🏓"
-    private var emojiFlags: String = "🏳️🏴🏴‍☠️🏁🚩🏳️‍🌈🇺🇳🇦🇶🇪🇺🎌🇻🇦"
-    private var emojiFaces: String = "🥳🤩😎🤯🥺🤫🙄😴🤐😷😵"
-    private lazy var emojiSetInUse = game.choseCardFaceSet(usableSets: [emojiHalloween, emojiAnimals, emojiSports, emojiFlags, emojiFaces])
+    
+    private var emojiSet = CardSet()
+
+    private lazy var emojiSetInUse = emojiSet.getCardSet()
     
     @IBOutlet private var cardButtons: [UIButton]!
     
@@ -46,10 +45,10 @@ class ViewController: UIViewController {
     }
     
     @IBAction private func newGame(_ sender: UIButton) {
+        
         flipCount = 0
-        for index in cardButtons.indices {
-            game.resetCards(at: index)
-        }
+        game = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
+        emojiSetInUse = emojiSet.getCardSet()
         updateViewFromModel()
     }
     

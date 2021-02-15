@@ -40,19 +40,6 @@ struct Concentration {
         }
     }
     
-    func choseCardFaceSet(usableSets: Array<String>) -> String {
-        let randomEmojiCollection = usableSets.count.arc4random
-        return usableSets[randomEmojiCollection]
-    }
-    
-    mutating func resetCards(at index: Int) {
-        assert(cards.indices.contains(index), "Concentration.resetCards(at: \(index)): chosen index not in the cards")
-        for index in cards.indices {
-            cards[index].isFaceUp = false
-            cards[index].isMatched = false
-        }
-    }
-    
     //------------------------------------
     // MARK: Initilisers
     //------------------------------------
