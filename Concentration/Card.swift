@@ -11,32 +11,27 @@ struct Card: Hashable {
     var isMatched: Bool = false
     
     // # Private/Fileprivate
-    private var identifier: Int
-    private static var uniqueIdentifier = 0
+    private var id: UUID
     
     //=======================================
     // MARK: Public Methods
     //=======================================
     static func == (lhs: Card, rhs: Card) -> Bool {
-        return lhs.identifier == rhs.identifier
+        return lhs.id == rhs.id
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(identifier)
+        hasher.combine(id)
     }
     
     //------------------------------------
     // MARK: Initilisers
     //------------------------------------
     init() {
-        self.identifier = Card.getUniqueIdentifier()
+        self.id = UUID()
     }
     
     //=======================================
     // MARK: Private Methods
     //=======================================
-    private static func getUniqueIdentifier() -> Int {
-        uniqueIdentifier += 1
-        return uniqueIdentifier
-    }
 }

@@ -1,7 +1,7 @@
 
 import Foundation
 
-class CardSet {
+struct CardSet {
     
     enum CardSets: CaseIterable {
         
