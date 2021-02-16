@@ -19,6 +19,12 @@ class ViewController: UIViewController {
         }
     }
     
+    private(set) var score: Int = 0 {
+        didSet {
+            updateScoreLabel()
+        }
+    }
+    
     private var emoji: Dictionary = [Card : String]()
     
     private var emojiSet = CardSet()
@@ -36,6 +42,12 @@ class ViewController: UIViewController {
             print("The game is finished: \(game.isGameFinished)")
         } else {
             print("Chosen card is not in the cardButtons array")
+        }
+    }
+    
+    @IBOutlet weak var scoreLabel: UILabel! {
+        didSet {
+            updateScoreLabel()
         }
     }
     
@@ -60,6 +72,7 @@ class ViewController: UIViewController {
     //=======================================
     private func updateViewFromModel() {
         flipCount = game.flipCount
+        score = game.score
         for index in cardButtons.indices {
             let button = cardButtons[index]
             let card = game.cards[index]
@@ -89,5 +102,14 @@ class ViewController: UIViewController {
         ]
         let attributedString = NSAttributedString(string: "Flips: \(flipCount)", attributes: attributes)
         flipCountLabel.attributedText = attributedString
+    }
+    
+    private func updateScoreLabel() {
+        let attributes: [NSAttributedString.Key : Any] = [
+            .strokeWidth: 2.0,
+            .strokeColor: UIColor.orange
+        ]
+        let attributedString = NSAttributedString(string: game.isGameFinished ? "Score: \(score),\ngame completed!" : "Score: \(score)", attributes: attributes)
+        scoreLabel.attributedText = attributedString
     }
 }

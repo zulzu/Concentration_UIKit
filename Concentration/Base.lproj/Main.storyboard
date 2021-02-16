@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flip count: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zEy-Y2-HFx">
-                                <rect key="frame" x="83" y="600" width="209.33333333333337" height="48"/>
+                                <rect key="frame" x="83.000000000000014" y="600" width="209.33333333333337" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <color key="textColor" systemColor="systemOrangeColor"/>
                                 <nil key="highlightedColor"/>
@@ -150,6 +150,12 @@
                                     <action selector="newGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kiU-fQ-KwK"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vog-b3-V7p">
+                                <rect key="frame" x="117" y="529" width="141" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <color key="textColor" systemColor="systemOrangeColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -160,12 +166,16 @@
                             <constraint firstItem="Xrw-u5-mz5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="CVq-co-x1D"/>
                             <constraint firstItem="Xrw-u5-mz5" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="HBF-79-ffb"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Xrw-u5-mz5" secondAttribute="trailing" constant="16" id="Mrm-FD-gfR"/>
-                            <constraint firstItem="zEy-Y2-HFx" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Xrw-u5-mz5" secondAttribute="bottom" constant="8" symbolic="YES" id="QbQ-TP-rF9"/>
+                            <constraint firstItem="Vog-b3-V7p" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="NWg-Sa-GbY"/>
+                            <constraint firstItem="zEy-Y2-HFx" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Vog-b3-V7p" secondAttribute="bottom" constant="8" symbolic="YES" id="QbQ-TP-rF9"/>
+                            <constraint firstItem="Vog-b3-V7p" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Xrw-u5-mz5" secondAttribute="bottom" constant="8" symbolic="YES" id="TlD-A0-qPb"/>
                             <constraint firstItem="zEy-Y2-HFx" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="esS-GS-vcd"/>
+                            <constraint firstItem="zEy-Y2-HFx" firstAttribute="top" secondItem="Vog-b3-V7p" secondAttribute="bottom" constant="23" id="wEX-Gb-1uI"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="flipCountLabel" destination="zEy-Y2-HFx" id="2Br-l8-sy0"/>
+                        <outlet property="scoreLabel" destination="Vog-b3-V7p" id="VQq-E9-SsC"/>
                         <outletCollection property="cardButtons" destination="8pq-EX-Uud" collectionClass="NSMutableArray" id="hX3-wi-Ro8"/>
                         <outletCollection property="cardButtons" destination="0Pl-xh-JqD" collectionClass="NSMutableArray" id="1EY-z0-VMN"/>
                         <outletCollection property="cardButtons" destination="Xg7-zn-J53" collectionClass="NSMutableArray" id="Y0F-K9-M92"/>
