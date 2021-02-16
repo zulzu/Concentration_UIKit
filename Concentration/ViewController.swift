@@ -37,15 +37,12 @@ class ViewController: UIViewController {
         if let cardNumber = cardButtons.firstIndex(of: sender) {
             game.chooseCard(at: cardNumber)
             updateViewFromModel()
-            print("Card number = \(cardNumber)")
-            print("Score = \(game.score)")
-            print("The game is finished: \(game.isGameFinished)")
         } else {
             print("Chosen card is not in the cardButtons array")
         }
     }
     
-    @IBOutlet weak var scoreLabel: UILabel! {
+    @IBOutlet private weak var scoreLabel: UILabel! {
         didSet {
             updateScoreLabel()
         }
@@ -109,7 +106,7 @@ class ViewController: UIViewController {
             .strokeWidth: 2.0,
             .strokeColor: UIColor.orange
         ]
-        let attributedString = NSAttributedString(string: game.isGameFinished ? "Score: \(score),\ngame completed!" : "Score: \(score)", attributes: attributes)
+        let attributedString = NSAttributedString(string: "Score: \(score)\(game.isGameFinished ? ",\ngame completed!" : "")", attributes: attributes)
         scoreLabel.attributedText = attributedString
     }
 }

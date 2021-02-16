@@ -1,6 +1,7 @@
 
 import Foundation
 
+// The model for the Concentration game
 struct Concentration {
     
     //------------------------------------
@@ -39,6 +40,7 @@ struct Concentration {
     //=======================================
     // MARK: Public Methods
     //=======================================
+    // All the things when the user taps on a card
     mutating func chooseCard(at index: Int) {
         assert(cards.indices.contains(index), "Concentration.chooseCard(at: \(index)): chosen index not in the cards")
                 
@@ -67,6 +69,8 @@ struct Concentration {
     //------------------------------------
     // MARK: Initilisers
     //------------------------------------
+    /// A Concentration game
+    /// - Parameter numberOfPairsOfCards: The number of pair of cards in the game
     init(numberOfPairsOfCards: Int) {
         assert(numberOfPairsOfCards > 0, "Concentration.init \(numberOfPairsOfCards): you must have at least one pair of cards")
         for _ in 0..<numberOfPairsOfCards {
@@ -79,6 +83,7 @@ struct Concentration {
     //=======================================
     // MARK: Private Methods
     //=======================================
+    // For updating the flip count
     private mutating func updateFlipCount(tappedCard: Int) {
         if tappedCard != indexOfSingleFaceUpCard {
             flipCount += 1
