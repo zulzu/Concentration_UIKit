@@ -28,11 +28,12 @@ class ViewController: UIViewController {
     @IBOutlet private var cardButtons: [UIButton]!
     
     @IBAction private func touchCard(_ sender: UIButton) {
-        flipCount += 1
         if let cardNumber = cardButtons.firstIndex(of: sender) {
             game.chooseCard(at: cardNumber)
             updateViewFromModel()
             print("Card number = \(cardNumber)")
+            print("Score = \(game.score)")
+            print("The game is finished: \(game.isGameFinished)")
         } else {
             print("Chosen card is not in the cardButtons array")
         }
@@ -45,8 +46,6 @@ class ViewController: UIViewController {
     }
     
     @IBAction private func newGame(_ sender: UIButton) {
-        
-        flipCount = 0
         game = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
         emojiSetInUse = emojiSet.getCardSet()
         updateViewFromModel()
@@ -60,6 +59,7 @@ class ViewController: UIViewController {
     // MARK: Private Methods
     //=======================================
     private func updateViewFromModel() {
+        flipCount = game.flipCount
         for index in cardButtons.indices {
             let button = cardButtons[index]
             let card = game.cards[index]
